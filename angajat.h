@@ -1,3 +1,6 @@
+#ifndef ANGAJAT_H
+#define ANGAJAT_H
+
 #include<iostream>
 #include<string>
 #include<ctime>
@@ -10,18 +13,22 @@ using namespace std;
 class angajat{
 protected:
     const unsigned int ID;
-    string nume;     //3-30 caract
-    string prenume;  //3-30 caract
+    string nume;
+    string prenume;
     string cnp;
+
     struct data{
         int zi;
         int luna;
         int an;
-    } data_angajarii;
+    };
+
+    data data_angajarii;
     string oras_domiciliu;
 
-public:
+    static unsigned int next_id;   // generator ID unic
 
+public:
     angajat();
     angajat(int, const string&, const string&, const string&, const struct data&, const string&);
     angajat(const angajat&);
@@ -34,7 +41,11 @@ public:
 
     virtual void afisare(ostream&) const;
     virtual double calcul_salariu() const = 0;
+
     int calcul_vechime_ani() const;
     int calcul_varsta_ani(const string&) const;
+
     bool validare_cnp(const string&);
 };
+
+#endif
