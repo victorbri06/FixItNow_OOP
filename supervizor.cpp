@@ -16,10 +16,15 @@ void supervizor::afisare(ostream& out) const{
 }
 
 double supervizor::calcul_salariu() const{
-    double salariu;
-    salariu=salariu_baza+((angajat::calcul_salariu())/3)*0.05*salariu_baza+0.2*salariu_baza;
+    double salariu = salariu_baza;
+
+    int vechime = calcul_vechime_ani();
+    salariu += (vechime / 3) * 0.05 * salariu_baza;
+
+    salariu += 0.2 * salariu_baza;
+
     if(oras_domiciliu!="Bucuresti")
-        salariu+=400;
+        salariu += 400;
 
     return salariu;
 }

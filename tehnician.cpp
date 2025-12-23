@@ -1,34 +1,35 @@
 #include "tehnician.h"
 
 tehnician::tehnician(): angajat(){
-    nr_tipuri=0;
-    nr_marci=0;
-    lista_tipuri=nullptr;
-    lista_marci=nullptr;
+    nr_specializari = 0;
+    specializari = nullptr;
 }
 
-tehnician::tehnician(int id1, const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras, int nr1, int nr2, const string* tipuri, const string* marci):
+tehnician::tehnician(int id1, const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras, int nrSpec, const pair<string,string>* listaSpec):
     angajat(id1,n1,p1,cnp1,data1,oras){
-    nr_tipuri=nr1;
-    nr_marci=nr2;
-    lista_tipuri=new string [nr_tipuri];
-    lista_marci=new string [nr_marci];
+    nr_specializari = nrSpec;
 
-    for(int i=0;i<nr_tipuri;i++)
-        lista_tipuri[i]=tipuri[i];
-    for(int i=0;i<nr_marci;i++)
-        lista_marci[i]=marci[i];
+    if(nr_specializari > 0){
+        specializari = new pair<string,string>[nr_specializari];
+        for(int i = 0; i < nr_specializari; i++)
+            specializari[i] = listaSpec[i];
+    } 
+    else{
+        specializari = nullptr;
+    }
 }
 
 tehnician::tehnician(const tehnician& tehn): angajat(tehn.ID,tehn.nume,tehn.prenume,tehn.cnp,tehn.data_angajarii,tehn.oras_domiciliu){
-    nr_tipuri=tehn.nr_tipuri;
-    nr_marci=tehn.nr_marci;
-    lista_tipuri=new string [nr_tipuri];
-    lista_marci=new string [nr_marci];
-    for(int i=0;i<nr_tipuri;i++)
-        lista_tipuri[i]=tehn.lista_tipuri[i];
-    for(int i=0;i<nr_marci;i++)
-        lista_marci[i]=tehn.lista_marci[i];
+    nr_specializari = tehn.nr_specializari;
+
+    if(nr_specializari > 0){
+        specializari = new pair<string,string>[nr_specializari];
+        for(int i = 0; i < nr_specializari; i++)
+            specializari[i] = tehn.specializari[i];
+    }
+    else{
+        specializari = nullptr;
+    }
 }
 
 /*tehnician& tehnician::operator=(const tehnician& tehn){
@@ -57,27 +58,35 @@ tehnician::tehnician(const tehnician& tehn): angajat(tehn.ID,tehn.nume,tehn.pren
     return *this;
 }*/
 
-void tehnician::afisare(ostream& out) const{
-    angajat::afisare(out);
-    out<<"Firme din portofoliu: ";
-    for(int i=0;i<nr_marci;i++)
-        out<<lista_marci[i]<<" ";
-    
-    out<<"Tipuri de electrocasnice din portofoiu: ";
-    for(int i=0;i<nr_tipuri;i++)
-        out<<lista_tipuri[i];
-}
-
 double tehnician::calcul_salariu() const{
-    double salariu;
-    salariu=salariu_baza+((angajat::calcul_salariu())/3)*0.05*salariu_baza;
-    if(oras_domiciliu!="Bucuresti")
-        salariu+=400;
+    double salariu = salariu_baza;
 
-    return salariu;  //+partea de 2% din valoarea reparatiilor
+    int vechime = calcul_vechime_ani();
+    int bonusuri = vechime / 3;
+    salariu += bonusuri * 0.05 * salariu_baza;
+
+    if(oras_domiciliu != "Bucuresti")
+        salariu += 400;
+
+    // +2% din valoarea reparatiilor se va adăuga ulterior când ai mecanismul implementat
+    return salariu;
 }
 
-tehnician::~tehnician(){
-    delete [] lista_marci;
-    delete [] lista_tipuri;
+void tehnician::afisare(ostream& out) const {
+    angajat::afisare(out);
+
+    out << "Specializari (tip, marca):\n";
+    for(int i = 0; i < nr_specializari; i++)
+        out << "  - " << specializari[i].first << " " << specializari[i].second << "\n";
+}
+
+bool tehnician::poateRepara(const string& tip, const string& marca) const {
+    for(int i = 0; i < nr_specializari; i++)
+        if(specializari[i].first == tip && specializari[i].second == marca)
+            return true;
+    return false;
+}
+
+tehnician::~tehnician() {
+    delete[] specializari;
 }

@@ -48,10 +48,14 @@ void receptioner::afisare(ostream& out) const{
 }
 
 double receptioner::calcul_salariu() const{
-    double salariu;
-    salariu=salariu_baza+((angajat::calcul_salariu())/3)*0.05*salariu_baza;
+    double salariu = salariu_baza;
+
+    int vechime = calcul_vechime_ani();
+    int bonusuri = vechime / 3;
+    salariu += bonusuri * 0.05 * salariu_baza;
+
     if(oras_domiciliu!="Bucuresti")
-        salariu+=400;
+        salariu += 400;
 
     return salariu;
 }
