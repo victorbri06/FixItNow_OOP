@@ -82,6 +82,10 @@ bool angajat::validare_cnp(const string& c){
     return check == (c[12]-'0');
 }
 
+string angajat::get_cnp() const{
+    return cnp;
+}
+
 void angajat::set_nume(const string& n){
     nume = n;
 }

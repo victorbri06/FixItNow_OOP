@@ -47,6 +47,7 @@ public:
     int calcul_varsta_ani(const string&) const;
 
     bool validare_cnp(const string&);
+    string get_cnp() const;
 };
 
 #endif

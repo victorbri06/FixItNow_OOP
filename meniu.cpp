@@ -77,8 +77,7 @@ int main(){
                     }
                 }
 
-                a = new tehnician(0, nume, prenume, cnp, d, oras,
-                                  spec.size(), spec.data());
+                a = new tehnician(0, nume, prenume, cnp, d, oras,spec.size(), spec.data());
             }
             else{
                 throw invalid_argument("tip angajat necunoscut");
@@ -87,15 +86,14 @@ int main(){
             lista_angajati.push_back(a);
         }
         catch(const exception& e){
-            cout << "Eroare angajat linia " << nr_linie
-                 << ": " << e.what() << "\n";
+            cout << "Eroare angajat linia " << nr_linie<< ": " << e.what() << "\n";
         }
     }
 
     fin_ang.close();
 
     // ===================== CITIRE ELECTROCASNICE =====================
-    ifstream fin_el("tests/electrocasnice.csv");
+    ifstream fin_el("tests/electrocasnice_in.csv");
     nr_linie = 0;
 
     while(getline(fin_el, linie)){
