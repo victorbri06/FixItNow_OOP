@@ -17,6 +17,8 @@ protected:
     string prenume;
     string cnp;
 
+public:
+
     struct data{
         int zi;
         int luna;
@@ -28,7 +30,6 @@ protected:
 
     static unsigned int next_id;   // generator ID unic
 
-public:
     angajat();
     angajat(int, const string&, const string&, const string&, const struct data&, const string&);
     angajat(const angajat&);
