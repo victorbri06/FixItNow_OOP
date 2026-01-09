@@ -1,6 +1,27 @@
 #include<iostream>
+#include <vector>
+#include <string>
+
+#include "angajat.h"
 
 using namespace std;
+
+void adaugare_angajat();
+void modificare_angajat();
+void stergere_angajat();
+void afisare_lista_angajati();
+void afisare_date_angajat();
+
+void afisare_meniu_angajati();
+void afiseaza_meniu_principal();
+void afisare_meniu_electrocasnice();
+void adaugare_electrocasnic();
+void stergere_electrocasnic();
+void afisare_lista_electrocasnice();
+void afisare_lista_elec_fara_cereri();
+
+vector<angajat*> lista_angajati;
+vector<electrocasnic*> lista_electrocasnice;
 
 //meniul principal
 void afis_meniu_principal(){
@@ -8,7 +29,7 @@ void afis_meniu_principal(){
     cout<<"Apasati tasta aferenta submeniului pe care doriti sa il accesati"<<endl<<endl;
     cout<<"1. Meniu angajati"<<endl<<"2. Meniu electrocasnice"<<endl;
     cout<<"3. Meniu cereri"<<endl<<"4. Meniu raportari"<<endl<<endl;
-    cout<<"Apasati tasta 0 daca doriti sa parasiti meniul";
+    cout<<"Apasati tasta 0 daca doriti sa parasiti meniul"<<endl<<endl;
 }
 
 //functii pentru submeniuri:
@@ -84,7 +105,7 @@ void afisare_meniu_angajati(){
     cout<<"3. Stergere angajat"<<endl;
     cout<<"4. Afisare lista angajati"<<endl;
     cout<<"5. Afisare date angajat(dupa CNP)"<<endl<<endl;
-    cout<<"pentru a te intoarce inapoi, apasa tasta 0";
+    cout<<"pentru a te intoarce inapoi, apasa tasta 0"<<endl<<endl;
 }
 
 void afisare_meniu_electrocasnice(){
@@ -93,7 +114,7 @@ void afisare_meniu_electrocasnice(){
     cout<<"2. Stergere electrocasnic din lista"<<endl;
     cout<<"3. Afisare lista electrocasnice cu detalii"<<endl;
     cout<<"4. Afisare modele care nu au aparut in cereri"<<endl<<endl;
-    cout<<"pentru a te intoarce inapoi, apasa tasta 0";
+    cout<<"pentru a te intoarce inapoi, apasa tasta 0"<<endl<<endl;
 }
 
 //functii pentru meniul de angajati

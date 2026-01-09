@@ -67,19 +67,22 @@ int angajat::calcul_varsta_ani(const string& c) const{
 }
 
 bool angajat::validare_cnp(const string& c){
-    if(c.size()!=13) return false;
+    if(c.size() != 13) return false;
 
     static int coef[] = {2,7,9,1,4,6,3,5,8,2,7,9};
     int sum = 0;
 
-    for(int i = 0; i < 12; i++)
+    for(int i = 0; i < 12; i++){
         if(!isdigit(c[i])) return false;
-        else sum += (c[i]-'0') * coef[i];
+        sum += (c[i] - '0') * coef[i];
+    }
+
+    if(!isdigit(c[12])) return false;
 
     int check = sum % 11;
     if(check == 10) check = 1;
 
-    return check == (c[12]-'0');
+    return check == (c[12] - '0');
 }
 
 string angajat::get_cnp() const{

@@ -1,3 +1,4 @@
+#pragma once
 #include "angajat.h"
 #include <utility>
 

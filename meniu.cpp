@@ -10,11 +10,6 @@
 #include <fstream>
 
 
-//variabile globale
-vector<angajat*> lista_angajati;
-vector<electrocasnic*> lista_electrocasnice;
-
-
 //functie de impartire a liniilor in elemente de tip vector<string>
 vector<string> split(const string& linie, char delim){
     vector<string> rez;
@@ -160,7 +155,9 @@ int main(){
             meniu_raportari();
             break;
         case 0:
-            return;
+            return 0;
     }
     }
+
+    return 0;
 }

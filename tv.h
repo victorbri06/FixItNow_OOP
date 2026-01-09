@@ -1,3 +1,4 @@
+#pragma once
 #include "electrocasnic.h"
 
 class tv: public electrocasnic{

@@ -1,6 +1,4 @@
-#ifndef ANGAJAT_H
-#define ANGAJAT_H
-
+#pragma once
 #include<iostream>
 #include<string>
 #include<ctime>
@@ -49,5 +47,3 @@ public:
     bool validare_cnp(const string&);
     string get_cnp() const;
 };
-
-#endif

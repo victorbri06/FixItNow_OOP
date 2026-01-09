@@ -1,3 +1,4 @@
+#pragma once
 #include "electrocasnic.h"
 
 class masina_spalat: public electrocasnic{
