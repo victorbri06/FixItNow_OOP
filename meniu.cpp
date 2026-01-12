@@ -5,9 +5,17 @@
 #include "masina_spalat.h"
 #include "tv.h"
 #include "functii_meniu.h"
+#include "cerere.h"
 
 #include <vector>
 #include <fstream>
+
+#include "cerere.h"
+
+vector<angajat*> lista_angajati;
+vector<electrocasnic*> lista_electrocasnice;
+vector<cerere*> lista_cereri;
+vector<string> lista_cereri_invalide;
 
 
 //functie de impartire a liniilor in elemente de tip vector<string>
@@ -56,10 +64,10 @@ int main(){
             angajat* a = nullptr;
 
             if(tip == "receptioner"){
-                a = new receptioner(0, nume, prenume, cnp, d, oras, 0, nullptr);
+                a = new receptioner(nume, prenume, cnp, d, oras, 0, nullptr);
             }
             else if(tip == "supervizor"){
-                a = new supervizor(0, nume, prenume, cnp, d, oras);
+                a = new supervizor(nume, prenume, cnp, d, oras);
             }
             else if(tip == "tehnician"){
                 vector<pair<string,string>> spec;
@@ -72,7 +80,7 @@ int main(){
                     }
                 }
 
-                a = new tehnician(0, nume, prenume, cnp, d, oras,spec.size(), spec.data());
+                a = new tehnician(nume, prenume, cnp, d, oras,spec.size(), spec.data());
             }
             else{
                 throw invalid_argument("tip angajat necunoscut");
@@ -134,6 +142,77 @@ int main(){
 
     fin_el.close();
 
+    //===========================CITIRE CERERI============================
+
+    ifstream fin_cer("tests/cereri_in.csv");
+    nr_linie = 0;
+
+    while(getline(fin_cer, linie)){
+        nr_linie++;
+        if(linie.size() == 0)
+            continue;
+
+        try{
+            vector<string> c = split(linie, ',');
+
+            if((int)c.size() != 5)
+                throw invalid_argument("numar campuri invalid");
+
+            string ts_str = c[0];
+            string tip = c[1];
+            string marca = c[2];
+            string model = c[3];
+            int complexitate = stoi(c[4]);
+
+            if(ts_str.size() != 19)
+                throw invalid_argument("timestamp invalid");
+
+            if(ts_str[4] != '-' || ts_str[7] != '-' || ts_str[10] != ' ' || ts_str[13] != ':' || ts_str[16] != ':')
+                throw invalid_argument("timestamp invalid");
+
+            cerere::timestamp ts;
+            ts.an = stoi(ts_str.substr(0,4));
+            ts.luna = stoi(ts_str.substr(5,2));
+            ts.zi = stoi(ts_str.substr(8,2));
+            ts.ora = stoi(ts_str.substr(11,2));
+            ts.minut = stoi(ts_str.substr(14,2));
+            ts.secunda = stoi(ts_str.substr(17,2));
+
+            bool duplicat = false;
+            for(int i = 0; i < (int)lista_cereri.size(); i++){
+                cerere::timestamp t = lista_cereri[i]->get_timestamp();
+                if(t.an == ts.an && t.luna == ts.luna && t.zi == ts.zi &&
+                   t.ora == ts.ora && t.minut == ts.minut && t.secunda == ts.secunda){
+                    duplicat = true;
+                    break;
+                }
+            }
+            if(duplicat)
+                throw invalid_argument("timestamp duplicat");
+
+            const electrocasnic* ap = nullptr;
+            for(int i = 0; i < (int)lista_electrocasnice.size(); i++){
+                if(lista_electrocasnice[i]->get_tip() == tip &&
+                   lista_electrocasnice[i]->get_marca() == marca &&
+                   lista_electrocasnice[i]->get_model() == model){
+                    ap = lista_electrocasnice[i];
+                    break;
+                }
+            }
+
+            if(ap == nullptr)
+                complexitate = 0;
+
+            cerere* cr = new cerere(tip, marca, model, ts, complexitate, ap);
+            lista_cereri.push_back(cr);
+        }
+        catch(const exception& e){
+            lista_cereri_invalide.push_back("Linia " + to_string(nr_linie) + ": " + e.what() + " | " + linie);
+        }
+    }
+
+    fin_cer.close();
+
 
     //meniu
     int opt;
@@ -151,9 +230,9 @@ int main(){
         case 3:
             meniu_cereri();
             break;
-        case 4:
-            meniu_raportari();
-            break;
+        //case 4:
+            //meniu_raportari();
+            //break;
         case 0:
             return 0;
     }

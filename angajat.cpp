@@ -2,21 +2,11 @@
 
 unsigned int angajat::next_id = 1;
 
-angajat::angajat() :
-    ID(next_id++),
-    nume(),
-    prenume(),
-    cnp(),
-    data_angajarii{0,0,0},
-    oras_domiciliu(""){
+angajat::angajat(): ID(next_id++), nume(), prenume(), cnp(), data_angajarii{0,0,0}, oras_domiciliu(""){
 }
 
-angajat::angajat(int id1, const string& n1, const string& p1,
-                 const string& cnp1, const struct data& data1,
-                 const string& oras):
-    ID(id1),
-    data_angajarii(data1),
-    oras_domiciliu(oras)
+angajat::angajat(const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras):
+    ID(next_id++), data_angajarii(data1), oras_domiciliu(oras)
 {
     if(n1.size() < 3 || n1.size() > 30 || p1.size() < 3 || p1.size() > 30)
         throw invalid_argument("numele sau prenumele sunt prea lungi sau prea scurte");
@@ -51,7 +41,6 @@ int angajat::calcul_vechime_ani() const{
 }
 
 int angajat::calcul_varsta_ani(const string& c) const{
-    // presupunem format valid deja
     int an = stoi(c.substr(1,2));
     int luna = stoi(c.substr(3,2));
     int zi = stoi(c.substr(5,2));

@@ -9,7 +9,7 @@ class tehnician: public angajat{
 public:
 
     tehnician();
-    tehnician(int, const string&, const string&, const string&, const struct data&, const string&, int, const pair<string,string>*);
+    tehnician(const string&, const string&, const string&, const struct data&, const string&, int, const pair<string,string>*);
     tehnician(const tehnician&);
     tehnician& operator=(const tehnician&)=delete;
     ~tehnician();

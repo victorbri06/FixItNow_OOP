@@ -29,7 +29,7 @@ public:
     static unsigned int next_id;   // generator ID unic
 
     angajat();
-    angajat(int, const string&, const string&, const string&, const struct data&, const string&);
+    angajat(const string&, const string&, const string&, const struct data&, const string&);
     angajat(const angajat&);
     angajat& operator=(const angajat&)=delete;
     virtual ~angajat()=default;

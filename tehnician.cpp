@@ -5,8 +5,8 @@ tehnician::tehnician(): angajat(){
     specializari = nullptr;
 }
 
-tehnician::tehnician(int id1, const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras, int nrSpec, const pair<string,string>* listaSpec):
-    angajat(id1,n1,p1,cnp1,data1,oras){
+tehnician::tehnician(const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras, int nrSpec, const pair<string,string>* listaSpec):
+    angajat(n1,p1,cnp1,data1,oras){
     nr_specializari = nrSpec;
 
     if(nr_specializari > 0){
@@ -19,7 +19,7 @@ tehnician::tehnician(int id1, const string& n1, const string& p1, const string& 
     }
 }
 
-tehnician::tehnician(const tehnician& tehn): angajat(tehn.ID,tehn.nume,tehn.prenume,tehn.cnp,tehn.data_angajarii,tehn.oras_domiciliu){
+tehnician::tehnician(const tehnician& tehn): angajat(tehn.nume,tehn.prenume,tehn.cnp,tehn.data_angajarii,tehn.oras_domiciliu){
     nr_specializari = tehn.nr_specializari;
 
     if(nr_specializari > 0){

@@ -8,7 +8,7 @@ class receptioner: public angajat{
 public:
 
     receptioner();
-    receptioner(const int, const string&, const string&, const string&, const struct data&, const string&, const int, const int*);
+    receptioner(const string&, const string&, const string&, const struct data&, const string&, const int, const int*);
     receptioner(const receptioner&);
     receptioner& operator=(const receptioner&)=delete;
     ~receptioner();

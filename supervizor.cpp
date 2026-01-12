@@ -2,7 +2,7 @@
 
 supervizor::supervizor(): angajat(){}
 
-supervizor::supervizor(int id1, const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras): angajat(id1,n1,p1,cnp1,data1,oras){}
+supervizor::supervizor(const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras): angajat(n1,p1,cnp1,data1,oras){}
 
 supervizor::supervizor(const supervizor& sup): angajat(sup){}
 

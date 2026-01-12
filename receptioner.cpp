@@ -5,8 +5,8 @@ receptioner::receptioner():angajat(){
     lista_ID=nullptr;
 }
 
-receptioner::receptioner(const int id1, const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras1, const int nr1, const int* id_list):
-    angajat(id1,n1,p1,cnp1,data1,oras1){
+receptioner::receptioner(const string& n1, const string& p1, const string& cnp1, const struct data& data1, const string& oras1, const int nr1, const int* id_list):
+    angajat(n1,p1,cnp1,data1,oras1){
     nr_id=nr1;
     lista_ID=new int [nr_id];
 
@@ -32,7 +32,7 @@ receptioner::receptioner(const int id1, const string& n1, const string& p1, cons
     return *this;
 }*/
 
-receptioner::receptioner(const receptioner& recept): angajat(recept.ID,recept.nume,recept.prenume,recept.cnp,recept.data_angajarii,recept.oras_domiciliu){
+receptioner::receptioner(const receptioner& recept): angajat(recept.nume,recept.prenume,recept.cnp,recept.data_angajarii,recept.oras_domiciliu){
     nr_id=recept.nr_id;
     lista_ID=new int [nr_id];
     for(int i=0;i<nr_id;i++)
